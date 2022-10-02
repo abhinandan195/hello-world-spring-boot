@@ -4,6 +4,9 @@ on:
   push:
     branches: [ master ]
   pull_request:
+  
+env:
+  TAG: abhinandan195/sample-application:latest
 
 jobs:
   build:
@@ -16,11 +19,12 @@ jobs:
         java-version: 1.11
     - name: Build with Maven
       run: mvn clean install
+    - name: Test Docker Image
+      run: docker run --rm ${{ env.TAG }}
     - name: Publish to Docker Hub
-      uses: docker/build-push-action@v1
+      uses: docker/build-push-action@v3
       with:
        push: ${{ github.event_name != 'pull_request' }}
        username: ${{ secrets.DOCKER_HUB_USERNAME }}
        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-       repository: abhinandan195/sample-application
-       tags: latest
+       tags: ${{ env.TAG }}
