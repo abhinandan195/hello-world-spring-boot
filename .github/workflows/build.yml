@@ -22,8 +22,8 @@ jobs:
     - name: Login to DockerHub
       uses: docker/login-action@v2
       with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
     - name: Test Docker Image
       run: docker run --rm ${{ env.TAG }}
     - name: Publish to Docker Hub
