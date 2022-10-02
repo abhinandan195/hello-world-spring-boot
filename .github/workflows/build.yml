@@ -31,7 +31,7 @@ jobs:
         load: true
         tags: ${{ env.TAG }}
     - name: Test Docker Image
-      run: docker run --rm ${{ env.TAG }}
+      run: docker run -d --rm ${{ env.TAG }}
     - name: Publish to Docker Hub
       uses: docker/build-push-action@v3
       with:
